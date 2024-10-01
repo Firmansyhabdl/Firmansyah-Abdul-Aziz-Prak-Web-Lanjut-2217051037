@@ -22,16 +22,32 @@
             <div class="mb-4">
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
                 <input type="text" name="nama" id="nama" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="kelas" class="block text-sm font-medium text-gray-700">Kelas</label>
-                <input type="text" name="kelas" id="kelas" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                
+                @if ($errors->has('nama'))
+                    <span class="text-red-500 text-sm">{{ $errors->first('nama') }}</span>
+                @endif
             </div>
 
             <div class="mb-4">
                 <label for="npm" class="block text-sm font-medium text-gray-700">NPM</label>
                 <input type="text" name="npm" id="npm" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                
+                @if ($errors->has('npm'))
+                    <span class="text-red-500 text-sm">{{ $errors->first('npm') }}</span>
+                @endif
+            </div>
+
+            <div class="mb-4">
+                <label for="kelas_id" class="block text-sm font-medium text-gray-700">Kelas</label>
+                <select name="kelas_id" id="kelas_id" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                    @foreach ($kelas as $kelasItem)
+                        <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
+                    @endforeach
+                </select>
+
+                @if ($errors->has('kelas_id'))
+                    <span class="text-red-500 text-sm">{{ $errors->first('kelas_id') }}</span>
+                @endif
             </div>
 
             <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Submit</button>
