@@ -2,7 +2,7 @@
 @section('content')
 <div class="form-container">
         <h1>Form User</h1>
-        <form action="{{ route('user.store') }}" method="POST">
+        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 form-group">
                 <label for="nama" class="form-label">Nama:</label>
@@ -38,6 +38,8 @@
                     </div>
                 @enderror
             </div>
+            <input type="file" id="foto" name="foto"><br><br>
+            <label for="foto">foto:</label><br>
             <button type="submit" class="btn btn-custom">Submit</button>
         </form>
     </div>

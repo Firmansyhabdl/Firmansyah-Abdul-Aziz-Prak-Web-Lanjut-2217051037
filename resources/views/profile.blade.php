@@ -19,11 +19,15 @@
     </style>
 </head>
 <body>
-    <div class="bg-white rounded-2xl shadow-lg w-96 p-6 text-center">
-        <img src="{{ asset('images/pp.jpg') }}" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-4">
-        <p class="text-gray-700">NAMA: {{$nama}}</p>
+<div class="bg-white rounded-2xl shadow-lg w-96 p-6 text-center">
+    <div class="profile-pic">
+        <img src="{{ asset($foto) }}" alt="Foto Profil"class="w-32 h-32 rounded-full mx-auto mb-4">
+        </div>
+        
+        <p class="text-gray-700">NAMA: {{ $nama }}</p>
         <p class="text-gray-700">NPM: {{ $npm }}</p>
         <p class="text-gray-700">KELAS: {{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</p>
     </div>
+   
 </body>
 </html>
