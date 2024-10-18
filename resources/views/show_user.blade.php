@@ -4,6 +4,7 @@
 <div class="form-container">
     <h1>Detail</h1>
     <ul class="list-unstyled">
+    <img src="{{ asset($user->foto ?? 'upload/img/') }}" alt="Foto {{ $user->nama }}" class="img-fluid rounded mb-3" style="max-width: 100px;">
         <li class="form-group">
             <strong>Nama:</strong> <span class="form-control-plaintext">{{ $user->nama }}</span>
         </li>
