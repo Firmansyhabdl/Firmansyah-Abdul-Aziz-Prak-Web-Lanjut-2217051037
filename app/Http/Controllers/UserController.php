@@ -85,23 +85,66 @@ public function profile($id)
     ]);
 }
 
+// public function show($id)
+// {
+//     $user = $this->userModel->getUser($id);
+
+//     $data = [
+//         'title' => 'profile',
+//         'user' => $user,
+//     ];
+
+//     // Mengembalikan view profile dengan data user
+//     return view('profile', [
+//         'nama' => $user->nama,
+//         'npm' => $user->npm,
+//         'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan', // Menggunakan operator null coalescing
+//         'foto' => $user->foto ?? 'upload/img/pp.jpg'
+//     ]);
+// }
+
 public function show($id)
 {
-    $user = $this->userModel->getUser($id);
+    $user = UserModel::findOrFail($id);
+    $kelas = Kelas::find($user->kelas_id);
 
-    $data = [
-        'title' => 'profile',
-        'user' => $user,
-    ];
+    $title = 'Detail ' . $user->nama;
 
-    // Mengembalikan view profile dengan data user
-    return view('profile', [
-        'nama' => $user->nama,
-        'npm' => $user->npm,
-        'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan', // Menggunakan operator null coalescing
-        'foto' => $user->foto ?? 'upload/img/pp.jpg'
-    ]);
+    return view('show_user', compact('user', 'kelas', 'title'));
+}
+public function edit($id){
+    $user = UserModel::findOrFail($id);
+    $kelasModel = new Kelas();
+    $kelas = $kelasModel->getKelas();
+    $title = 'Edit User';
+    return view('edit_user',compact('user','kelas','title'));
+}
+public function update(Request $request, $id)
+{
+    $user = UserModel::findOrFail($id);
+
+    $user->nama = $request->nama;
+    $user->npm = $request->npm;
+    $user->kelas_id = $request->kelas_id;
+
+    if ($request->hasFile('foto')){
+        $fileName = time() . '.' . $request->foto->extension();
+        $request->foto->move(public_path('upload'), $fileName);
+        $user->foto = 'upload/' . $fileName;
+    }
+
+    $user->save();
+
+    return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui!');
 }
 
+public function destroy($id){
+    $user = UserModel::findOrFail($id);
+    $user->delete();
+
+    return redirect()->to('/user')->with('Succes','User has been deleted successfully');
+
+
+}
 
 }
